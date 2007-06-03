@@ -1,0 +1,95 @@
+#!/bin/sh
+#
+# mpdscribble	Scrobbling for mpd
+#
+# chkconfig:	345 99 1
+#
+# description:	Mpdscribble subbmits song being played with mpd to
+# 		Audioscrobbler.
+#
+# $Id$
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Get service config - may override defaults
+[ -f /etc/sysconfig/mpdscribble ] && . /etc/sysconfig/mpdscribble
+
+# Check that networking is up.
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network -a "$1" != stop -a "$1" != status ]; then
+		msg_network_down mpdscribble
+		exit 1
+	fi
+else
+	exit 0
+fi
+
+start() {
+	# Check if the service is already running?
+	if [ ! -f /var/lock/subsys/mpdscribble ]; then
+		msg_starting mpdscribble
+		daemon mpdscribble
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/mpdscribble
+	else
+		msg_already_running mpdscribble
+	fi
+}
+
+stop() {
+	if [ -f /var/lock/subsys/mpdscribble ]; then
+		# Stop daemons.
+		msg_stopping mpdscribble
+		killproc mpdscribble
+		rm -f /var/lock/subsys/mpdscribble
+	else
+		msg_not_running mpdscribble
+	fi
+}
+
+reload() {
+	if [ -f /var/lock/subsys/mpdscribble ]; then
+		msg_reloading mpdscribble
+		killproc mpdscribble -HUP
+		RETVAL=$?
+	else
+		msg_not_running mpdscribble
+		RETVAL=7
+	fi
+}
+
+RETVAL=0
+# See how we were called.
+case "$1" in
+  start)
+  	start
+	;;
+  stop)
+  	stop
+	;;
+  restart)
+	stop
+	start
+	;;
+  reload)
+  	reload
+	;;
+# ONLY if program allows reloading without stopping
+# otherwise include force-reload with 'reload'
+  force-reload)
+	reload
+	;;
+  status)
+	status mpdscribble
+	RETVAL=$?
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
+	exit 3
+esac
+
+exit $RETVAL
