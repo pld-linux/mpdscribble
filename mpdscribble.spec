@@ -15,7 +15,6 @@ Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Source3:	%{name}.conf
 URL:		http://www.frob.nl/scribble.html
-BuildRequires:	gcc
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	libsoup-devel >= 2.2
 BuildRequires:	pkgconfig
@@ -41,14 +40,14 @@ informacje o odtwarzanych utworach do audioscrobblera.
 rm -rf $RPM_BUILD_ROOT 
 install -d \
 	$RPM_BUILD_ROOT%{_sysconfdir}/mpdscribble \
-	$RPM_BUILD_ROOT%{_sysconfdir}/sysconfig \
-	$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d
+	$RPM_BUILD_ROOT/etc/sysconfig \
+	$RPM_BUILD_ROOT/etc/rc.d/init.d
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/mpdscribble
-install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/mpdscribble
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/mpdscribble
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/mpdscribble
 install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/mpdscribble
 
 %clean
@@ -59,7 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/*
 %{_mandir}/man1/mpdscribble.1*
-%dir /etc/mpdscribble
-%config(noreplace) %verify(not md5 mtime size) /etc/mpdscribble/mpdscribble.conf
+%dir %{_sysconfdir}/mpdscribble
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mpdscribble/mpdscribble.conf
 %attr(754,root,root) /etc/rc.d/init.d/%{name}
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
