@@ -1,0 +1,13 @@
+Patch from http://code.google.com/p/mpdscribble/issues/detail?id=23
+--- mpdscribble-0.2.12/file.c	2008-07-28 00:16:28 +0700
++++ mpdscribble-0.2.12/file.c	2008-07-28 20:17:22 +0700
+@@ -170,6 +170,9 @@ get_pair (char *str)
+   do
+     {
+       ptr += m[0].rm_eo + 1;
++      if(*ptr == '\0') {
++         break;
++      }
+       error = regexec (&compiled, ptr, 4, m, 0);
+       if (!error && m[3].rm_eo != -1)
+         add_pair (&p, ptr,
