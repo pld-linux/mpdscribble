@@ -32,7 +32,7 @@ start() {
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/mpdscribble ]; then
 		msg_starting mpdscribble
-		daemon mpdscribble
+		daemon --fork mpdscribble
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/mpdscribble
 	else
