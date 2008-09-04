@@ -23,6 +23,8 @@ URL:		http://www.frob.nl/scribble.html
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	libsoup-devel >= 2.2
 BuildRequires:	pkgconfig
+Requires(post,preun):	/sbin/chkconfig
+Requires:	rc-scripts >= 0.4.0.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
