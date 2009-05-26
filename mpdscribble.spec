@@ -5,16 +5,18 @@
 Summary:	Scrobbler for mpd
 Summary(pl.UTF-8):	Scrobbler dla mpd
 Name:		mpdscribble
-Version:	0.16
+Version:	0.17
 Release:	1
 License:	GPL v2
 Group:		Daemons
 Source0:	http://dl.sourceforge.net/musicpd/%{name}-%{version}.tar.gz
-# Source0-md5:	97d78f95faa4da55bc4676ab2127814c
+# Source0-md5:	ea6a0197f638443366c412cafd0a99ba
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Source3:	%{name}.conf
 URL:		http://mpd.wikia.com/wiki/Client:Mpdscribble
+BuildRequires:	autoconf >= 2.59
+BuildRequires:	automake
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	libsoup-devel >= 2.2
 BuildRequires:	pkgconfig
