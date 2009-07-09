@@ -5,12 +5,12 @@
 Summary:	Scrobbler for mpd
 Summary(pl.UTF-8):	Scrobbler dla mpd
 Name:		mpdscribble
-Version:	0.17
+Version:	0.18
 Release:	1
-License:	GPL v2
+License:	GPL v2+
 Group:		Daemons
 Source0:	http://dl.sourceforge.net/musicpd/%{name}-%{version}.tar.gz
-# Source0-md5:	ea6a0197f638443366c412cafd0a99ba
+# Source0-md5:	928ef5491975db8af057ebedaecbebed
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Source3:	%{name}.conf
@@ -79,7 +79,8 @@ fi
 %doc AUTHORS NEWS README
 %attr(755,root,root) %{_bindir}/%{name}
 %{_mandir}/man1/mpdscribble.1*
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mpdscribble.conf
+%dir %{_sysconfdir}/mpdscribble
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mpdscribble/mpdscribble.conf
 %attr(754,root,root) /etc/rc.d/init.d/%{name}
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
 %dir /var/log/mpdscribble
