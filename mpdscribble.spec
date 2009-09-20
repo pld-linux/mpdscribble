@@ -13,7 +13,7 @@ Source0:	http://dl.sourceforge.net/musicpd/%{name}-%{version}.tar.gz
 # Source0-md5:	f3ab2ef721426362f2ebc27a165b1cba
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
-Source3:	%{name}.conf
+Patch0:		%{name}-path.patch
 URL:		http://mpd.wikia.com/wiki/Client:Mpdscribble
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -34,12 +34,15 @@ informacje o odtwarzanych utworach do audioscrobblera.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__aclocal} -Im4
 %{__autoconf}
+%{__autoheader}
 %{__automake}
-%configure
+%configure \
+	--with-http-client=soup
 %{__make}
 
 %install
@@ -55,7 +58,6 @@ install -d \
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/mpdscribble
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/mpdscribble
-install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/mpdscribble
 
 install -d $RPM_BUILD_ROOT/var/log/mpdscribble
 touch $RPM_BUILD_ROOT/var/log/mpdscribble/%{name}.log
@@ -78,11 +80,11 @@ fi
 %defattr(644,root,root,755)
 %doc AUTHORS NEWS README
 %attr(755,root,root) %{_bindir}/%{name}
-%{_mandir}/man1/mpdscribble.1*
 %dir %{_sysconfdir}/mpdscribble
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mpdscribble/mpdscribble.conf
-%attr(754,root,root) /etc/rc.d/init.d/%{name}
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
+%attr(754,root,root) /etc/rc.d/init.d/%{name}
+%{_mandir}/man1/mpdscribble.1*
 %dir /var/log/mpdscribble
 %attr(640,root,root) %ghost /var/log/mpdscribble/%{name}.log
 %dir %attr(750,root,root) /var/cache/%{name}
