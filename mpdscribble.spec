@@ -5,12 +5,12 @@
 Summary:	Scrobbler for mpd
 Summary(pl.UTF-8):	Scrobbler dla mpd
 Name:		mpdscribble
-Version:	0.18.1
+Version:	0.19
 Release:	1
 License:	GPL v2+
 Group:		Daemons
-Source0:	http://dl.sourceforge.net/musicpd/%{name}-%{version}.tar.gz
-# Source0-md5:	f3ab2ef721426362f2ebc27a165b1cba
+Source0:	http://downloads.sourceforge.net/musicpd/%{name}-%{version}.tar.gz
+# Source0-md5:	7091105b0aaf1cd2549099321e3f19f9
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Patch0:		%{name}-path.patch
@@ -18,6 +18,7 @@ URL:		http://mpd.wikia.com/wiki/Client:Mpdscribble
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	glib2-devel >= 2.0
+BuildRequires:	libmpdclient-devel >= 2.0
 BuildRequires:	libsoup-devel >= 2.2
 BuildRequires:	pkgconfig
 Requires(post,preun):	/sbin/chkconfig
@@ -37,7 +38,7 @@ informacje o odtwarzanych utworach do audioscrobblera.
 %patch0 -p1
 
 %build
-%{__aclocal} -Im4
+%{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
