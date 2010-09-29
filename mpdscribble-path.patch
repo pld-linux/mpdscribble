@@ -1,6 +1,6 @@
---- mpdscribble-0.18.1/Makefile.am.orig	2009-08-30 07:58:48.000000000 +0200
-+++ mpdscribble-0.18.1/Makefile.am	2009-09-20 21:01:55.000000000 +0200
-@@ -47,7 +47,7 @@
+--- mpdscribble-0.20/Makefile.am~	2010-09-22 15:16:26.000000000 +0200
++++ mpdscribble-0.20/Makefile.am	2010-09-29 09:53:36.468512333 +0200
+@@ -42,7 +42,7 @@
  	$(libgcrypt_LIBS) \
  	$(libglib_LIBS)
  
@@ -9,7 +9,7 @@
  
  SPARSE = sparse
  SPARSE_FLAGS =
-@@ -63,15 +63,15 @@
+@@ -58,15 +58,15 @@
  INSTALL_SECURE = $(INSTALL) -m 600
  
  install-dist_sysconfDATA:
@@ -17,7 +17,7 @@
 +	test -z "$(sysconfdir)/mpdscribble" || $(mkdir_p) "$(DESTDIR)$(sysconfdir)/mpdscribble"
  	@list='$(dist_sysconf_DATA)'; \
  	for p in $$list; do \
--	    dest=$(am__strip_dir) \
+-	    dest=`echo $$p | sed -e 's|^.*/||'`; \
 -	    if test -f $(DESTDIR)$(sysconfdir)/$$dest; then \
 -	        echo "$@ will not overwrite existing $(DESTDIR)$(sysconfdir)/$$dest"; \
 +	    $(am__strip_dir) \
@@ -27,12 +27,12 @@
  	        if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
 -	        echo " $(INSTALL_SECURE) $$d$$p $(DESTDIR)$(sysconfdir)/$$dest"; \
 -	        $(INSTALL_SECURE) $$d$$p $(DESTDIR)$(sysconfdir)/$$dest; \
-+	        echo " $(INSTALL_SECURE) $$d$$p $(DESTDIR)$(sysconfdir)/mpdscribble/$$f"; \
-+	        $(INSTALL_SECURE) $$d$$p $(DESTDIR)$(sysconfdir)/mpdscribble/$$f; \
++	    	echo " $(INSTALL_SECURE) $$d$$p $(DESTDIR)$(sysconfdir)/mpdscribble/$$f"; \
++                $(INSTALL_SECURE) $$d$$p $(DESTDIR)$(sysconfdir)/mpdscribble/$$f; \
  	    fi; \
  	done
---- mpdscribble-0.18.1/doc/mpdscribble.conf.orig	2009-08-30 07:58:48.000000000 +0200
-+++ mpdscribble-0.18.1/doc/mpdscribble.conf	2009-09-20 21:50:25.000000000 +0200
+--- mpdscribble-0.20/doc/mpdscribble.conf~	2010-09-22 15:16:26.000000000 +0200
++++ mpdscribble-0.20/doc/mpdscribble.conf	2010-09-29 09:56:40.278512333 +0200
 @@ -14,7 +14,8 @@
  # "syslog" makes mpdscribble use the local syslog daemon.  On most
  # systems, log messages will appear in /var/log/daemon.log then.
