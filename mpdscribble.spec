@@ -5,12 +5,12 @@
 Summary:	Scrobbler for mpd
 Summary(pl.UTF-8):	Scrobbler dla mpd
 Name:		mpdscribble
-Version:	0.20
+Version:	0.21
 Release:	1
 License:	GPL v2+
 Group:		Daemons
 Source0:	http://downloads.sourceforge.net/musicpd/%{name}-%{version}.tar.gz
-# Source0-md5:	74943e6a0c519c9bba9eb5206586d718
+# Source0-md5:	79792ed39b882857db0ec91e0f46628d
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Patch0:		%{name}-path.patch
