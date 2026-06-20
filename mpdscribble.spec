@@ -6,7 +6,7 @@ Summary:	Scrobbler for mpd
 Summary(pl.UTF-8):	Scrobbler dla mpd
 Name:		mpdscribble
 Version:	0.21
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Daemons
 Source0:	http://downloads.sourceforge.net/musicpd/%{name}-%{version}.tar.gz
